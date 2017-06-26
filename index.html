@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+	<main id="app"></main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+	<script>
+		// Creando un componente por medio de una funcion
+		function Hola(props) {
+			const name = props.name;
+			// Crea un elemento h1 en el DOM, primer parametro son atributos comunes y segundo parametro el contenido interno del elemento o tag
+			return React.DOM.h1({
+				id: 'Title'
+			}, `Hola ${name}`)
+		}
+
+		/*
+			Instanciando elemento de React con React.createElement, le pasamos el componente como primer argumento
+			pero tambien podria ser un elemento o tag y como sugundo argumento los props
+		*/
+		const hola = React.createElement(Hola, {
+			name: 'Mundo'
+		})
+		// Mostrando componente en la GUI, con el metodo render de ReactDOM
+		ReactDOM.render(
+			hola,
+			document.getElementById('app')
+		)
+
+		setTimeout(
+			() => {
+				ReactDOM.render(
+					React.createElement(Hola, { name: 'Platzi!' }),
+					document.getElementById('app')
+				)
+			}, 1000
+		)
+	</script>
+</body>
+</html>
