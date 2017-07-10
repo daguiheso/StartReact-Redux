@@ -30,5 +30,6 @@ Características
 ## Introducción a JSX
 
 * Es una extension de Javascript que nos permite utilizar HTML
+* Para usar Babel desde el navegador, necesitas agregar un script, con la librería de babel-standalone y el tag donde escribimos el código debe ser tipo text/babel
 
 
