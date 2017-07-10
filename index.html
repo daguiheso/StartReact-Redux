@@ -8,35 +8,32 @@
 </head>
 <body>
 	<main id="app"></main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
-	<script>
+	<script type="text/babel">
 		// Creando un componente por medio de una funcion
 		function Hola(props) {
 			const name = props.name;
-			// Crea un elemento h1 en el DOM, primer parametro son atributos comunes y segundo parametro el contenido interno del elemento o tag
-			return React.DOM.h1({
-				id: 'Title'
-			}, `Hola ${name}`)
+
+			// Creando elemento h en el DOM con JSX, sin utilizar React.DOM.h1({id: 'Title'}, `Hola ${name}`)
+			return (
+				<h1 id="Title">
+					Hola {name}
+				</h1>
+			)
 		}
 
-		/*
-			Instanciando elemento de React con React.createElement, le pasamos el componente como primer argumento
-			pero tambien podria ser un elemento o tag y como sugundo argumento los props
-		*/
-		const hola = React.createElement(Hola, {
-			name: 'Mundo'
-		})
 		// Mostrando componente en la GUI, con el metodo render de ReactDOM
 		ReactDOM.render(
-			hola,
+			<Hola name="Mundo"/>,
 			document.getElementById('app')
 		)
 
 		setTimeout(
 			() => {
 				ReactDOM.render(
-					React.createElement(Hola, { name: 'Platzi!' }),
+					<Hola name="Platzi!"/>,
 					document.getElementById('app')
 				)
 			}, 1000

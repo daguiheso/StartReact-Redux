@@ -1,0 +1,34 @@
+ch### React JS
+
+React es una librería creada por Facebook, para crear las UI de las aplicaciones web basadas en componentes.
+
+Características
+
+* Los datos fluyen en un sentido desde el primer al último componente
+* Usa un algoritmo para detectar cambios y solo aplicar esas modificaciones a la UI
+* Utiliza JS para crear componentes pero para facilitar esto extendieron el lenguaje creando JSX
+* Permite generar cualquier tipo de UI como web, mobile, canvas, televisores, terminales, etc.
+* Propone usar programación funcional y manejar estructuras de datos inmutables.
+
+
+## Hola Mundo
+
+
+
+
+## ¿Que es y cómo funciona el Virtual DOM?
+
+* El virtual DOM es una representación de todos los objetos que componen la UI usando un objeto de JS.
+* Todos los componentes creados por React deben comenzar con mayúscula.
+* El algoritmo de React permite que se hagan cambios de manera efectiva en el DOM.
+* El algoritmo de diferencias de virtual DOM calcula las diferencias de lo que hay ahora y lo que va a venir luego.
+* Los key son únicos por lista, si dentro de tu aplicación tenés dos listas estos pueden tener los mismos key sin problema, pero si dos elementos de la misma lista tienen el mismo key solo se va a renderizar el primero.
+* Los key solo se usan en listas para identificar a cada elementos único de esa lista, fuera de una lista React los ignora.
+
+
+
+## Introducción a JSX
+
+* Es una extension de Javascript que nos permite utilizar HTML
+
+
