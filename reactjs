@@ -33,3 +33,45 @@ Características
 * Para usar Babel desde el navegador, necesitas agregar un script, con la librería de babel-standalone y el tag donde escribimos el código debe ser tipo text/babel
 
 
+## Creación de componentes
+
+* Desarrollo Orientado a Componentes
+* Separación de responsabilidades
+
+* Maneras de Crear un componente en React
+
+	- PureComponent : Funcion pura, es decir que no tiene efectos secundarios, no hace nada externo ni depende de algo externo solo de las props
+
+			function Hola(props) {
+				const name = props.name;
+
+				// Creando elemento h en el DOM con JSX, sin utilizar React.DOM.h1({id: 'Title'}, `Hola ${name}`)
+				return (
+					<h1 id="Title">
+						Hola {name}
+					</h1>
+				)
+			}
+
+	- Clases: React.Component me permite crear un componente utilizando clases y a diferencia de un componente creado con una funcion pura, se puede acceder a mas funcionaliades de React como por ejemplo el estado.
+
+		- El metodo render() es el unico que es obligatorio en todo componente creado con clases
+		- Cuando utilizamos clases los props se acceden directamente con this
+		- hacer el super(props) es obligatorio siempre que utilizemos el metodo constructor
+		- Un estado podemos actualizarlo utilizando una funcion llamada setState
+		- metodo setState que podemos utilizar gracias a extender React.Component, me permite actualizar el estado o una key particular del estado
+		- Cuando asignamos una funcion para que escuche eventos en un elemento nativo del DOM, el valor del this se pisa por el elemento, entonces no tenemos acceso al componente, para solucionar esto utilizamos
+
+			this.handleClick = this.handleClick.bind(this)
+
+			y asi pisamos la funcion handleClick con esa misma funcion pero cuyo this va a ser el componente
+		- Siempre que hagamos un bind del this hay que hacerlo en el constructor por rendimiento y no asi
+
+			render () {
+				const name = this.props.name
+				return (
+					<h1 id="Title" onClick={this.handleClick.bind(this)}>
+						Hola {name} {this.state.count}
+					</h1>
+				)
+			}

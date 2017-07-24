@@ -14,7 +14,7 @@
 	<script type="text/babel">
 		// Creando un componente por medio de una funcion
 		function Hola(props) {
-			const name = props.name;
+			const name = props.name
 
 			// Creando elemento h en el DOM con JSX, sin utilizar React.DOM.h1({id: 'Title'}, `Hola ${name}`)
 			return (
@@ -24,20 +24,53 @@
 			)
 		}
 
+		// Creando un componente por medio de una clase
+		class MiComponente extends React.Component {
+
+			// metodo constructor que va a recibir los props y va a pasarselos a la clase que estamos extendiendo
+			constructor(props) {
+				// hacer el super(props) es obligatorio siempre que utilizemos el metodo constructor y nos permite utilizar this.state
+				super(props)
+
+				// aqui seteamos un objeto que va a ser el estado actual de la app
+				this.state = {
+					count: 0
+				}
+
+				/*
+					Cuando asignamos una funcion para que escuche eventos en un elemento nativo del DOM, el valor del this se pisa por el elemento, entonces no tenemos acceso al componente, para solucionar esto utilizamos
+
+						this.handleClick = this.handleClick.bind(this)
+
+					y asi pisamos la funcion handleClick con esa misma funcion pero cuyo this va a ser el componente
+				*/
+				this.handleClick = this.handleClick.bind(this)
+			}
+
+			handleClick() {
+				// metodo setState que podemos utilizar gracias a extender React.Component, me permite actualizar el estado o una key particular del estado
+				this.setState({
+					count: this.state.count + 1
+				})
+			}
+
+			render () {
+				const name = this.props.name
+				return (
+					<h1 id="Title" onClick={this.handleClick}>
+						Hola {name} {this.state.count}
+					</h1>
+				)
+			}
+		}
+
+
 		// Mostrando componente en la GUI, con el metodo render de ReactDOM
 		ReactDOM.render(
-			<Hola name="Mundo"/>,
+			<MiComponente name="Mundo"/>,
 			document.getElementById('app')
 		)
 
-		setTimeout(
-			() => {
-				ReactDOM.render(
-					<Hola name="Platzi!"/>,
-					document.getElementById('app')
-				)
-			}, 1000
-		)
 	</script>
 </body>
 </html>
