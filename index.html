@@ -65,34 +65,9 @@
 			}
 		}
 
-		// Creando un componente con estado por medio de una funcion que me crea la Clase
-		const OtroComponente = React.createClass({
-			getInitialState() {
-				return {
-					count: 0
-				}
-			},
-			handleClick() {
-				// metodo setState que podemos utilizar gracias a extender React.Component, me permite actualizar el estado o una key particular del estado
-				this.setState({
-					count: this.state.count + 1
-				})
-			},
-			render () {
-				const name = this.props.name
-				return (
-					<h1 id="Title" onClick={this.handleClick
-					}>
-						Hola {name} {this.state.count}
-					</h1>
-				)
-			}
-		})
-
-
 		// Mostrando componente en la GUI, con el metodo render de ReactDOM
 		ReactDOM.render(
-			<OtroComponente name="Mundo"/>,
+			<MiComponente name="Mundo"/>,
 			document.getElementById('app')
 		)
 

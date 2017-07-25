@@ -83,3 +83,8 @@ Características
 
 			class MiComponent extends React.PureComponent { ... }
 
+
+## Componentes Puros vs Componentes de Estados  (comp UI vs comp contenedores)
+
+	-
+
