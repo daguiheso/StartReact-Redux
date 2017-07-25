@@ -75,3 +75,11 @@ Características
 					</h1>
 				)
 			}
+
+	- PureComponent: Se diferencia de un componente que extiende React.component en que implementa un metodo para validar si los props y el estado cambiaron, y solamente hacer el render si cambiaron. Esto da una ventaja de rendimiento cuando tenemos un monton de componentes que pueden estar cambiando y asi evitar hacer render() inecesarios de los componentes, PERO,  tambien nos puede causar un problema; Si PureComponent, internamente, tiene otros elementos que tienen un estado interno como un componente que extiende a React.Component, pues cuando llegue a este componente y vea que nada cambio, simplemente no va a seguir renderizando la app esa parte. Por eso no es muy bueno utilizar siempre PureComponent, al no ser que estemos creando un componente  que este al final del arbol de componentes  (ultimo componente)
+
+	- Creando un componente con estado por medio de una funcion que me crea la Clase, pero actualmente se recomienda no usarla ya que se va a eliminar de la libreria
+
+
+			class MiComponent extends React.PureComponent { ... }
+
