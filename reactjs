@@ -76,7 +76,7 @@ Características
 				)
 			}
 
-	- PureComponent: Se diferencia de un componente que extiende React.component en que implementa un metodo para validar si los props y el estado cambiaron, y solamente hacer el render si cambiaron. Esto da una ventaja de rendimiento cuando tenemos un monton de componentes que pueden estar cambiando y asi evitar hacer render() inecesarios de los componentes, PERO,  tambien nos puede causar un problema; Si PureComponent, internamente, tiene otros elementos que tienen un estado interno como un componente que extiende a React.Component, pues cuando llegue a este componente y vea que nada cambio, simplemente no va a seguir renderizando la app esa parte. Por eso no es muy bueno utilizar siempre PureComponent, al no ser que estemos creando un componente  que este al final del arbol de componentes  (ultimo componente)
+	- PureComponent: Se diferencia de un componente que extiende React.component en que implementa un metodo para validar si los props y el estado cambiaron, y solamente hacer el render si cambiaron. Esto da una ventaja de rendimiento cuando tenemos un monton de componentes que pueden estar cambiando y asi evitar hacer render() inecesarios de los componentes, PERO,  tambien nos puede causar un problema; Si PureComponent, internamente, tiene otros elementos que tienen un estado interno como un componente que extiende a React.Component, pues cuando llegue a este componente y vea que nada cambio, simplemente no va a seUIr renderizando la app esa parte. Por eso no es muy bueno utilizar siempre PureComponent, al no ser que estemos creando un componente  que este al final del arbol de componentes  (ultimo componente)
 
 	- Creando un componente con estado por medio de una funcion que me crea la Clase, pero actualmente se recomienda no usarla ya que se va a eliminar de la libreria
 
@@ -86,5 +86,30 @@ Características
 
 ## Componentes Puros vs Componentes de Estados  (comp UI vs comp contenedores)
 
-	-
+	- No es algo directo de Reactjs, es una buena practica que hace mantenible el codigo y consiste en separar nuestros componentes en 2 tipos
 
+		Componentes puros: Van a ser usados creando funciones y para crear partes de la UI
+		Componentes de Estados o contenedor: Un contenedor no debe tener UI , si no logica. Asi que dentro de un contenedor se llama a los componentes puros o de UI
+
+	- El dividir los componentes con estados y componentes solo de UI, nos permite facilitar el volver a usar componentes en partes de la aplicación
+
+## Ciclo de vida de un componente
+
+Todos los componentes tienen un momento dentro de su vida util como componente, desde que se crean, actualizan y eliminan
+
+- Montado:
+	Constructor() → definir estado
+	conponentWillMount() → Aún no esta el DOM, no se deben hacer peticiones sincronas
+	render() → dibujamos el dom
+	componentDidMount → Después que la aplicación se monta
+
+- Actualización:
+	componentWillReceiveProps(nextProps)
+	shouldComponentUpdate(nextProps, nextState) → prueba si es necesario actualizar el componente
+	componentWillUpdate(nextProps, nextState) → el componente sera montado
+	render() → Renderiza la aplicación
+	componenteDidUpdate(prevProps, prevstate) → podemos volver a asignar algo
+
+- Desmontado:
+	componentWillUnmount() → Limpiar eventos o eliminar algunas cosas
+	Sergio Daniel Xalambrí
