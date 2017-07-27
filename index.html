@@ -45,6 +45,34 @@
 				this.handleClick = this.handleClick.bind(this)
 			}
 
+			// Antes de que se dibuje el DOM
+			componentWillMount() {
+				console.log('el componente se va a montar')
+			}
+			// Ya se dibujo el DOM
+			componentDidMount() {
+				console.log('el componente ya  se monto')
+				document.addEventListener('click', this.handleClick)
+			}
+
+			shouldComponentUpdate(nextProps, nextState) {
+				if(nextState.count !== this.state.count) return true
+				return false
+			}
+
+			componentWillUpdate() {
+				console.log('el componente se va a actualizar')
+			}
+
+			componentDidUpdate() {
+				console.log('el componente se actualizo')
+			}
+
+			componentWillUnmount() {
+				console.log('el componente ya  se desmonto')
+				document.removeEventListener('click', this.handleClick)
+			}
+
 			handleClick() {
 				// metodo setState que podemos utilizar gracias a extender React.Component, me permite actualizar el estado o una key particular del estado
 				this.setState({

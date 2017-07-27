@@ -98,18 +98,40 @@ Características
 Todos los componentes tienen un momento dentro de su vida util como componente, desde que se crean, actualizan y eliminan
 
 - Montado:
-	Constructor() → definir estado
-	conponentWillMount() → Aún no esta el DOM, no se deben hacer peticiones sincronas
+
+	Constructor() → inicializar estados, recibir props
+	conponentWillMount() :
+		- Aún no esta el DOM
+		- No se deben hacer peticiones sincronas aquí
+		- Para ejecutar codigo antes de que el componente se renderize
+		- Sirve para backend y frontend
 	render() → dibujamos el dom
-	componentDidMount → Después que la aplicación se monta
+
+	componentDidMount :
+		- Se ejecuta después que el componente se monta
+		- Aca podemos hacer ajax, inicializar mapas de google  maps, aqui es un buen momento para integrar librerias de terceros
 
 - Actualización:
-	componentWillReceiveProps(nextProps)
-	shouldComponentUpdate(nextProps, nextState) → prueba si es necesario actualizar el componente
+
+	componentWillReceiveProps(nextProps) :
+		- Recibe como argumento los siguientes props
+		- Aca podemos validar si los props cambiaron y actualizar el estado con base a eso o hacer cualquier cosa en base a que los props hayan cambiado pero antes que el componente se actualize
+
+	shouldComponentUpdate(nextProps, nextState) :
+		- Recibe como parametro los siguientes props y el siguiente estado, este metodo nos permite a nosotros devolver true o false e indicar:
+			Si devolvemos true, que el componente se tiene que actualizar
+			Si devolvemos false, que el componente no se tiene que actualizar
+		- Todos los componentes por defecto retornan true en este metodo, excepto un tipo de componentes, los que se crean usando PureComponent
+		- Los componentes creados con PureComponent implementan una funcionalidad en este metodo que valida si los props y el estado cambiaron, y si no cambiaron devuelve false, esto es lo que permite que el componente no se renderize si no cambiaron sus datos
+		- Prueba si es necesario actualizar el componente
+
 	componentWillUpdate(nextProps, nextState) → el componente sera montado
 	render() → Renderiza la aplicación
-	componenteDidUpdate(prevProps, prevstate) → podemos volver a asignar algo
+	componenteDidUpdate(prevProps, prevstate) :
+		- Recibe el estado y las props anteriores
+		- Podemos volver a asignar algo, o a inicializar un mapa, volver hacer una peticion http
 
 - Desmontado:
-	componentWillUnmount() → Limpiar eventos o eliminar algunas cosas
-	Sergio Daniel Xalambrí
+	componentWillUnmount() :
+		- Se ejecuta antes de que el componente se borre de la UI
+		- Nos permite limpiar eventos o eliminar algunas cosas
