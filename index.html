@@ -16,7 +16,7 @@
 		function Hola(props) {
 			// Creando elemento h en el DOM con JSX, sin utilizar React.DOM.h1({id: 'Title'}, `Hola ${name}`)
 			return (
-				<h1 id="Title" onClick={props.onClick}>
+				<h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
 					Hola {props.name} {props.count}
 				</h1>
 			)
@@ -79,6 +79,9 @@
 					count: this.state.count + 1
 				})
 			}
+			handleMouseEnter(event) {
+				console.log(event.target)
+			}
 
 			render () {
 				const name = this.props.name
@@ -87,6 +90,7 @@
 						name={this.props.name}
 						count={this.state.count}
 						onClick={this.handleClick}
+						onMouseEnter={this.handleMouseEnter}
 					/>
 				)
 			}

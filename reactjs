@@ -135,3 +135,7 @@ Todos los componentes tienen un momento dentro de su vida util como componente, 
 	componentWillUnmount() :
 		- Se ejecuta antes de que el componente se borre de la UI
 		- Nos permite limpiar eventos o eliminar algunas cosas
+
+## Manejo de eventos del DOM
+
+Además de tener los eventos nativos del DOM, React cuenta con una forma de manejar eventos, estos tienen atributos similares o algunos adicionales.
