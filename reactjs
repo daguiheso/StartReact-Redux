@@ -139,3 +139,37 @@ Todos los componentes tienen un momento dentro de su vida util como componente, 
 ## Manejo de eventos del DOM
 
 Además de tener los eventos nativos del DOM, React cuenta con una forma de manejar eventos, estos tienen atributos similares o algunos adicionales.
+
+## Contexto de la App
+
+	1. getChildContext : Metodo que hay que definir y nos permite devolver los datos que queramos mandar al contexto de toda la App
+
+			getChildContext() {
+				return {
+					count: this.state.count
+				}
+			}
+
+	2. Definir propiedad estatica, y esto es un objeto que tiene que definir el tipo de datos que se van a mandar en el contexto. El definir PropTypes nos permite decirle a React  el tipo de dato
+
+			MiComponente.childContextTypes = {
+				count: React.PropTypes.number
+			}
+
+	3. Obteniendo acceso al contexto desde el componente en el cual lo queremos utilizar
+
+			Hola.contextTypes = {
+				count: React.PropTypes.number
+			}
+
+	4. Usando el contexto, recibimos como parametro el context
+
+			function Hola(props, context) {
+			return (
+				<h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
+					Hola {props.name} {context.count}
+				</h1>
+			)
+
+	* Utilizarlo solo cuando sea necesario, ya que esta en pruebas y es un procedimiento largo.  Utilizarlo ayuda cuando tenemos muchos componentes: Por ejemplo A, B y C.  Para pasar datos de A a C sin que B sepa de su existencia.
+	* Utilizarlo nos permite crear componentes que sean mas facil de reusar ya que no dependen de que otros componentes padres

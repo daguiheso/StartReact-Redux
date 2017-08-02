@@ -13,13 +13,18 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
 	<script type="text/babel">
 		// Creando un componente por medio de una funcion
-		function Hola(props) {
+		function Hola(props, context) {
 			// Creando elemento h en el DOM con JSX, sin utilizar React.DOM.h1({id: 'Title'}, `Hola ${name}`)
 			return (
 				<h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
-					Hola {props.name} {props.count}
+					Hola {props.name} {context.count}
 				</h1>
 			)
+		}
+
+		// Usando el contexto
+		Hola.contextTypes = {
+			count: React.PropTypes.number
 		}
 
 		// Creando un componente por medio de una clase
@@ -43,6 +48,12 @@
 					y asi pisamos la funcion handleClick con esa misma funcion pero cuyo this va a ser el componente
 				*/
 				this.handleClick = this.handleClick.bind(this)
+			}
+
+			getChildContext() {
+				return {
+					count: this.state.count
+				}
 			}
 
 			// Antes de que se dibuje el DOM
@@ -94,6 +105,11 @@
 					/>
 				)
 			}
+		}
+
+		// Definiendo propiedad estatica, y esto es un objeto que tiene que definir el tipo de datos que se van a mandar en el contexto. El definir PropTypes nos permite decirle a React  el tipo de dato
+		MiComponente.childContextTypes = {
+			count: React.PropTypes.number
 		}
 
 		// Mostrando componente en la GUI, con el metodo render de ReactDOM
