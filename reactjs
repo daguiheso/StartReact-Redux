@@ -173,3 +173,9 @@ Además de tener los eventos nativos del DOM, React cuenta con una forma de mane
 
 	* Utilizarlo solo cuando sea necesario, ya que esta en pruebas y es un procedimiento largo.  Utilizarlo ayuda cuando tenemos muchos componentes: Por ejemplo A, B y C.  Para pasar datos de A a C sin que B sepa de su existencia.
 	* Utilizarlo nos permite crear componentes que sean mas facil de reusar ya que no dependen de que otros componentes padres
+
+
+## Componentes de Alto Orden (HOC) y Mixins
+
+	* Para poder compartir funcionalidades entre componentes, sin necesidad de declarar funciones varias veces, asi que reutilizamos codigo con los mixins
+	* {...this.props} es una manera de decirle a los datos que se descompongan y se apliquen a el componente

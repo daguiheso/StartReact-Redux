@@ -12,12 +12,56 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
 	<script type="text/babel">
+		// Componente de alto orden
+		function Counter(WrappedComponent) {
+			class CounterHOC extends React.Component {
+				constructor(props) {
+					super(props)
+
+					this.state = {
+						count: 0
+					}
+
+					this.handleClick = this.handleClick.bind(this)
+				}
+
+				getChildContext() {
+					return {
+						count: this.state.count
+					}
+				}
+
+				handleClick() {
+					this.setState({
+						count: this.state.count + 1
+					})
+				}
+
+				render() {
+					// {...this.props} es una manera de decirle a los datos que se descompongan y se apliquen a el componente
+					return (
+						<WrappedComponent
+							onClick={this.handleClick}
+							// Ponemos el onclick antes del ...this.props para que primero se mande el onClick y si el ...this.props define su propio onClick, este pise el Onclick que define el componente de alto orden
+							{...this.props}
+						/>
+					)
+				}
+			}
+
+			CounterHOC.childContextTypes = {
+				count: React.PropTypes.number
+			}
+
+			return CounterHOC
+		}
+
 		// Creando un componente por medio de una funcion
 		function Hola(props, context) {
 			// Creando elemento h en el DOM con JSX, sin utilizar React.DOM.h1({id: 'Title'}, `Hola ${name}`)
 			return (
-				<h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
-					Hola {props.name} {context.count}
+				<h1 id="Title" onClick={props.onClick}>
+					Hello {props.name} {context.count}
 				</h1>
 			)
 		}
@@ -27,94 +71,12 @@
 			count: React.PropTypes.number
 		}
 
-		// Creando un componente por medio de una clase
-		class MiComponente extends React.Component {
-
-			// metodo constructor que va a recibir los props y va a pasarselos a la clase que estamos extendiendo
-			constructor(props) {
-				// hacer el super(props) es obligatorio siempre que utilizemos el metodo constructor y nos permite utilizar this.state
-				super(props)
-
-				// aqui seteamos un objeto que va a ser el estado actual de la app
-				this.state = {
-					count: 0
-				}
-
-				/*
-					Cuando asignamos una funcion para que escuche eventos en un elemento nativo del DOM, el valor del this se pisa por el elemento, entonces no tenemos acceso al componente, para solucionar esto utilizamos
-
-						this.handleClick = this.handleClick.bind(this)
-
-					y asi pisamos la funcion handleClick con esa misma funcion pero cuyo this va a ser el componente
-				*/
-				this.handleClick = this.handleClick.bind(this)
-			}
-
-			getChildContext() {
-				return {
-					count: this.state.count
-				}
-			}
-
-			// Antes de que se dibuje el DOM
-			componentWillMount() {
-				console.log('el componente se va a montar')
-			}
-			// Ya se dibujo el DOM
-			componentDidMount() {
-				console.log('el componente ya  se monto')
-				document.addEventListener('click', this.handleClick)
-			}
-
-			shouldComponentUpdate(nextProps, nextState) {
-				if(nextState.count !== this.state.count) return true
-				return false
-			}
-
-			componentWillUpdate() {
-				console.log('el componente se va a actualizar')
-			}
-
-			componentDidUpdate() {
-				console.log('el componente se actualizo')
-			}
-
-			componentWillUnmount() {
-				console.log('el componente ya  se desmonto')
-				document.removeEventListener('click', this.handleClick)
-			}
-
-			handleClick() {
-				// metodo setState que podemos utilizar gracias a extender React.Component, me permite actualizar el estado o una key particular del estado
-				this.setState({
-					count: this.state.count + 1
-				})
-			}
-			handleMouseEnter(event) {
-				console.log(event.target)
-			}
-
-			render () {
-				const name = this.props.name
-				return (
-					<Hola
-						name={this.props.name}
-						count={this.state.count}
-						onClick={this.handleClick}
-						onMouseEnter={this.handleMouseEnter}
-					/>
-				)
-			}
-		}
-
-		// Definiendo propiedad estatica, y esto es un objeto que tiene que definir el tipo de datos que se van a mandar en el contexto. El definir PropTypes nos permite decirle a React  el tipo de dato
-		MiComponente.childContextTypes = {
-			count: React.PropTypes.number
-		}
+		// Utilizando componente de alto orden (HOC)
+		const HolaHOC = Counter(Hola)
 
 		// Mostrando componente en la GUI, con el metodo render de ReactDOM
 		ReactDOM.render(
-			<MiComponente name="Mundo"/>,
+			<HolaHOC name="Mundo"/>,
 			document.getElementById('app')
 		)
 
