@@ -65,6 +65,7 @@ Características
 			this.handleClick = this.handleClick.bind(this)
 
 			y asi pisamos la funcion handleClick con esa misma funcion pero cuyo this va a ser el componente
+
 		- Siempre que hagamos un bind del this hay que hacerlo en el constructor por rendimiento y no asi
 
 			render () {
@@ -78,11 +79,11 @@ Características
 
 	- PureComponent: Se diferencia de un componente que extiende React.component en que implementa un metodo para validar si los props y el estado cambiaron, y solamente hacer el render si cambiaron. Esto da una ventaja de rendimiento cuando tenemos un monton de componentes que pueden estar cambiando y asi evitar hacer render() inecesarios de los componentes, PERO,  tambien nos puede causar un problema; Si PureComponent, internamente, tiene otros elementos que tienen un estado interno como un componente que extiende a React.Component, pues cuando llegue a este componente y vea que nada cambio, simplemente no va a seUIr renderizando la app esa parte. Por eso no es muy bueno utilizar siempre PureComponent, al no ser que estemos creando un componente  que este al final del arbol de componentes  (ultimo componente)
 
-	- Creando un componente con estado por medio de una funcion que me crea la Clase, pero actualmente se recomienda no usarla ya que se va a eliminar de la libreria
-
-
 			class MiComponent extends React.PureComponent { ... }
 
+	- Creando un componente con estado por medio de una funcion que me crea la Clase, pero actualmente se recomienda no usarla ya que se va a eliminar de la libreria
+
+			React.createClass
 
 ## Componentes Puros vs Componentes de Estados  (comp UI vs comp contenedores)
 
@@ -179,3 +180,6 @@ Además de tener los eventos nativos del DOM, React cuenta con una forma de mane
 
 	* Para poder compartir funcionalidades entre componentes, sin necesidad de declarar funciones varias veces, asi que reutilizamos codigo con los mixins
 	* {...this.props} es una manera de decirle a los datos que se descompongan y se apliquen a el componente
+	* Los HOC se utilizan mucho en librerias (Redux, react-intel)
+
+	* Los mixins solo funcionas con componentes creados con createClass Y me permiten reutilizar funciones en varios componentes

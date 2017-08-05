@@ -12,71 +12,25 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
 	<script type="text/babel">
-		// Componente de alto orden
-		function Counter(WrappedComponent) {
-			class CounterHOC extends React.Component {
-				constructor(props) {
-					super(props)
 
-					this.state = {
-						count: 0
-					}
-
-					this.handleClick = this.handleClick.bind(this)
-				}
-
-				getChildContext() {
-					return {
-						count: this.state.count
-					}
-				}
-
-				handleClick() {
-					this.setState({
-						count: this.state.count + 1
-					})
-				}
-
-				render() {
-					// {...this.props} es una manera de decirle a los datos que se descompongan y se apliquen a el componente
-					return (
-						<WrappedComponent
-							onClick={this.handleClick}
-							// Ponemos el onclick antes del ...this.props para que primero se mande el onClick y si el ...this.props define su propio onClick, este pise el Onclick que define el componente de alto orden
-							{...this.props}
-						/>
-					)
-				}
+		// creando mixin
+		const myMixin = {
+			handleClick() {
+				console.log('clickeado')
 			}
+		}
 
-			CounterHOC.childContextTypes = {
-				count: React.PropTypes.number
+		const Componente = React.createClass({
+			// aplicando el mixin
+			mixins:[myMixin],
+			render() {
+				return <div onClick={this.handleClick}>hola</div>
 			}
-
-			return CounterHOC
-		}
-
-		// Creando un componente por medio de una funcion
-		function Hola(props, context) {
-			// Creando elemento h en el DOM con JSX, sin utilizar React.DOM.h1({id: 'Title'}, `Hola ${name}`)
-			return (
-				<h1 id="Title" onClick={props.onClick}>
-					Hello {props.name} {context.count}
-				</h1>
-			)
-		}
-
-		// Usando el contexto
-		Hola.contextTypes = {
-			count: React.PropTypes.number
-		}
-
-		// Utilizando componente de alto orden (HOC)
-		const HolaHOC = Counter(Hola)
+		})
 
 		// Mostrando componente en la GUI, con el metodo render de ReactDOM
 		ReactDOM.render(
-			<HolaHOC name="Mundo"/>,
+			<Componente name="Mundo"/>,
 			document.getElementById('app')
 		)
 
